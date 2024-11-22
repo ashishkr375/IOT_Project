@@ -7,7 +7,7 @@ export default function Home() {
   useEffect(() => {
     // Fetch the current IP from your Next.js API
     const fetchIp = async () => {
-      const response = await fetch('/api/update-ip');
+      const response = await fetch('/api/updateIP');
       const data = await response.json();
       setCurrentIp(data.ip);
     };
