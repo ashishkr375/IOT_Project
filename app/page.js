@@ -4,8 +4,8 @@ import { FaFan, FaLightbulb, FaPowerOff, FaRegSnowflake, FaTemperatureHigh } fro
 
 const IotAutomate = () => {
   const [currentIp, setCurrentIp] = useState(null);
-  const [temperature, setTemperature] = useState(24.5);
-  const [humidity, setHumidity] = useState(78.0);
+  const [temperature, setTemperature] = useState(0.000);
+  const [humidity, setHumidity] = useState(0.0);
   const [acMode, setAcMode] = useState("automatic");
   const [led1Status, setLed1Status] = useState("OFF");
   const [led2Status, setLed2Status] = useState("OFF");
