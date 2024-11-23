@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [currentIp, setCurrentIp] = useState(null);
+  
 
   useEffect(() => {
     // Fetch the current IP from the Next.js API (GET request)

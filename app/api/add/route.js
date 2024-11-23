@@ -12,7 +12,7 @@ const connectDb = async () => {
 
 export async function POST(req) {
   const db = await connectDb();
-  const collection = db.collection("sensorData");
+  const collection = db.collection("IPData");
   const { ip } = await req.json(); // Parse the body for the IP address
 
   if (!ip) {
@@ -63,7 +63,7 @@ export async function POST(req) {
 // GET method to retrieve the current IP address
 export async function GET() {
     const db = await connectDb();
-    const collection = db.collection("sensorData");
+    const collection = db.collection("IPData");
   
     try {
       const ipData = await collection.findOne({}, { sort: { updatedAt: -1 } }); // Get the most recent IP
