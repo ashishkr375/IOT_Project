@@ -13,10 +13,10 @@ const IotAutomate = () => {
   const [lightStatus, setLightStatus] = useState("OFF");
   const [acManualMode, setAcManualMode] = useState("med");
 
-  // Ref to store the ongoing fetch request
+  
   const ongoingRequest = useRef(null);
 
-  // Fetch the current IP
+
   useEffect(() => {
     const fetchIp = async () => {
       try {
@@ -36,7 +36,7 @@ const IotAutomate = () => {
     fetchIp();
   }, []);
 
-  // Fetch live data from APIs every 5 seconds
+ 
   useEffect(() => {
     if (!currentIp) return;
 
@@ -45,22 +45,22 @@ const IotAutomate = () => {
         const statusRes = await fetch(`http://${currentIp}/status`);
         const statusData = await statusRes.json();
 
-        // Set statuses from the API response
+    
         setAcMode(statusData.ac_mode);
         setLed1Status(statusData.led1_status);
         setLed2Status(statusData.led2_status);
         setLed3Status(statusData.led3_status);
         setLightStatus(statusData.light_status);
 
-        // Fetch temperature (plain text response)
+        
         const tempRes = await fetch(`http://${currentIp}/temperature`);
-        const tempData = await tempRes.text(); // Use .text() to handle plain text response
-        setTemperature(parseFloat(tempData)); // Parse the temperature to a float
+        const tempData = await tempRes.text();
+        setTemperature(parseFloat(tempData)); 
 
-        // Fetch humidity (plain text response)
+        
         const humidityRes = await fetch(`http://${currentIp}/humidity`);
-        const humidityData = await humidityRes.text(); // Use .text() to handle plain text response
-        setHumidity(parseFloat(humidityData)); // Parse the humidity to a float
+        const humidityData = await humidityRes.text(); 
+        setHumidity(parseFloat(humidityData));at
         
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -68,12 +68,11 @@ const IotAutomate = () => {
     };
 
     fetchData();
-    const intervalId = setInterval(fetchData, 5000); // Update data every 5 seconds
-
-    return () => clearInterval(intervalId); // Clean up interval on component unmount
+    const intervalId = setInterval(fetchData, 5000);
+    return () => clearInterval(intervalId);
   }, [currentIp]);
 
-  // Handle AC mode changes with cancellation of previous requests
+
   const handleAcModeChange = (newMode) => {
     setAcManualMode(newMode);
     setAcMode(newMode);
@@ -84,7 +83,7 @@ const IotAutomate = () => {
     if (newMode === 'automatic') {
       controlUrl += 'automatic';
     } else {
-      // Set the default to medium LEDs when switching to manual mode
+      
       let ledParams = '';
 
       switch (newMode) {
@@ -101,22 +100,21 @@ const IotAutomate = () => {
           ledParams = 'led1=1&led2=1&led3=1';
           break;
         default:
-          ledParams = 'led1=1&led2=1&led3=0'; // Default to medium
+          ledParams = 'led1=1&led2=1&led3=0'; 
       }
 
       controlUrl += `manual&${ledParams}`;
     }
 
-    // Cancel the ongoing request if there's one
     if (ongoingRequest.current) {
       ongoingRequest.current.abort();
     }
 
-    // Create a new AbortController for the new request
+    
     const controller = new AbortController();
     ongoingRequest.current = controller;
 
-    // Make the API call with the updated URL
+    
     fetch(controlUrl, { signal: controller.signal })
       .then(response => response.json())
       .then(data => {
@@ -129,9 +127,9 @@ const IotAutomate = () => {
       });
   };
 
-  // Handle light toggle
+  
   const handleLightToggle = () => {
-    // Create a new AbortController for this request
+    
     const controller = new AbortController();
     ongoingRequest.current = controller;
 
@@ -225,6 +223,7 @@ const IotAutomate = () => {
             <FaLightbulb size={24} />
           </button>
         </div>
+        {/* Teams Details */}
         <div className="bg-gray-800 p-6 rounded-xl shadow-lg mb-6">
   <h4 className="text-2xl font-bold mb-4 text-white flex items-center">
     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
