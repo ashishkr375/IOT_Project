@@ -60,7 +60,7 @@ const IotAutomate = () => {
         
         const humidityRes = await fetch(`http://${currentIp}/humidity`);
         const humidityData = await humidityRes.text(); 
-        setHumidity(parseFloat(humidityData));at
+        setHumidity(parseFloat(humidityData));
         
       } catch (error) {
         console.error('Error fetching data:', error);
